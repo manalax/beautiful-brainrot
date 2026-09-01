@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PieceSetRegistry" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/piece_set_registry.gd" id="1_reg"]
+[ext_resource type="Script" path="res://scripts/data/piece_set.gd" id="2_reg"]
+[ext_resource type="Resource" path="res://resources/sets/classic.tres" id="3_reg"]
+[ext_resource type="Resource" path="res://resources/sets/fruit.tres" id="4_reg"]
+
+[resource]
+resource_name = "PieceSetRegistry"
+script = ExtResource("1_reg")
+sets = Array[ExtResource("2_reg")]([ExtResource("3_reg"), ExtResource("4_reg")])

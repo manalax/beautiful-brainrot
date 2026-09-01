@@ -1,0 +1,82 @@
+[gd_resource type="Resource" script_class="PieceSet" format=3 uid="uid://dbxsjslm27f8d"]
+
+[ext_resource type="Script" uid="uid://bhfx81mdm3ksb" path="res://scripts/data/piece_set.gd" id="1_cls"]
+[ext_resource type="Script" uid="uid://br8ks2hcmfisr" path="res://scripts/data/piece_label.gd" id="2_cls"]
+
+[sub_resource type="Resource" id="Resource_cls01"]
+resource_name = "Tier01"
+script = ExtResource("2_cls")
+text = "❤️"
+
+[sub_resource type="Resource" id="Resource_cls02"]
+resource_name = "Tier02"
+script = ExtResource("2_cls")
+tier = 2
+text = "😂"
+
+[sub_resource type="Resource" id="Resource_cls03"]
+resource_name = "Tier03"
+script = ExtResource("2_cls")
+tier = 3
+text = "🤡"
+
+[sub_resource type="Resource" id="Resource_cls04"]
+resource_name = "Tier04"
+script = ExtResource("2_cls")
+tier = 4
+text = "🥀"
+
+[sub_resource type="Resource" id="Resource_cls05"]
+resource_name = "Tier05"
+script = ExtResource("2_cls")
+tier = 5
+text = "💯"
+
+[sub_resource type="Resource" id="Resource_cls06"]
+resource_name = "Tier06"
+script = ExtResource("2_cls")
+tier = 6
+text = "🤢"
+
+[sub_resource type="Resource" id="Resource_cls07"]
+resource_name = "Tier07"
+script = ExtResource("2_cls")
+tier = 7
+text = "🥶"
+
+[sub_resource type="Resource" id="Resource_cls08"]
+resource_name = "Tier08"
+script = ExtResource("2_cls")
+tier = 8
+text = "🍆"
+
+[sub_resource type="Resource" id="Resource_cls09"]
+resource_name = "Tier09"
+script = ExtResource("2_cls")
+tier = 9
+text = "🫦"
+
+[sub_resource type="Resource" id="Resource_cls10"]
+resource_name = "Tier10"
+script = ExtResource("2_cls")
+tier = 10
+text = "🌶️"
+
+[sub_resource type="Resource" id="Resource_cls11"]
+resource_name = "Tier11"
+script = ExtResource("2_cls")
+tier = 11
+text = "🥵"
+
+[sub_resource type="Resource" id="Resource_cls12"]
+resource_name = "Tier12"
+script = ExtResource("2_cls")
+tier = 12
+text = "🦌"
+
+[resource]
+resource_name = "Classic"
+script = ExtResource("1_cls")
+id = &"classic"
+display_name = "Classic"
+labels = Array[ExtResource("2_cls")]([SubResource("Resource_cls01"), SubResource("Resource_cls02"), SubResource("Resource_cls03"), SubResource("Resource_cls04"), SubResource("Resource_cls05"), SubResource("Resource_cls06"), SubResource("Resource_cls07"), SubResource("Resource_cls08"), SubResource("Resource_cls09"), SubResource("Resource_cls10"), SubResource("Resource_cls11"), SubResource("Resource_cls12")])

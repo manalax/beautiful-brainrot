@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/game/danger_test.gd" id="1_test"]
+[ext_resource type="PackedScene" path="res://scenes/game/game.tscn" id="2_game"]
+
+[node name="DangerTest" type="Node2D"]
+script = ExtResource("1_test")
+
+[node name="Game" parent="." instance=ExtResource("2_game")]

@@ -1,0 +1,84 @@
+[gd_resource type="Resource" script_class="PieceSet" format=3 uid="uid://bu7pedbr8vfur"]
+
+[ext_resource type="Script" uid="uid://bhfx81mdm3ksb" path="res://scripts/data/piece_set.gd" id="1_frt"]
+[ext_resource type="Script" uid="uid://br8ks2hcmfisr" path="res://scripts/data/piece_label.gd" id="2_frt"]
+
+[sub_resource type="Resource" id="Resource_frt01"]
+resource_name = "Tier01"
+script = ExtResource("2_frt")
+text = "🫐"
+
+[sub_resource type="Resource" id="Resource_frt02"]
+resource_name = "Tier02"
+script = ExtResource("2_frt")
+tier = 2
+text = "🍒"
+
+[sub_resource type="Resource" id="Resource_frt03"]
+resource_name = "Tier03"
+script = ExtResource("2_frt")
+tier = 3
+text = "🍓"
+
+[sub_resource type="Resource" id="Resource_frt04"]
+resource_name = "Tier04"
+script = ExtResource("2_frt")
+tier = 4
+text = "🥝"
+
+[sub_resource type="Resource" id="Resource_frt05"]
+resource_name = "Tier05"
+script = ExtResource("2_frt")
+tier = 5
+text = "🍊"
+
+[sub_resource type="Resource" id="Resource_frt06"]
+resource_name = "Tier06"
+script = ExtResource("2_frt")
+tier = 6
+text = "🍎"
+
+[sub_resource type="Resource" id="Resource_frt07"]
+resource_name = "Tier07"
+script = ExtResource("2_frt")
+tier = 7
+text = "🍐"
+
+[sub_resource type="Resource" id="Resource_frt08"]
+resource_name = "Tier08"
+script = ExtResource("2_frt")
+tier = 8
+text = "🍑"
+
+[sub_resource type="Resource" id="Resource_frt09"]
+resource_name = "Tier09"
+script = ExtResource("2_frt")
+tier = 9
+text = "🍍"
+
+[sub_resource type="Resource" id="Resource_frt10"]
+resource_name = "Tier10"
+script = ExtResource("2_frt")
+tier = 10
+text = "🥥"
+
+[sub_resource type="Resource" id="Resource_frt11"]
+resource_name = "Tier11"
+script = ExtResource("2_frt")
+tier = 11
+text = "🍈"
+
+[sub_resource type="Resource" id="Resource_frt12"]
+resource_name = "Tier12"
+script = ExtResource("2_frt")
+tier = 12
+text = "🍉"
+
+[resource]
+resource_name = "Fruit"
+script = ExtResource("1_frt")
+id = &"fruit"
+display_name = "Fruit"
+label_scale = 1.45
+label_tinted = false
+labels = Array[ExtResource("2_frt")]([SubResource("Resource_frt01"), SubResource("Resource_frt02"), SubResource("Resource_frt03"), SubResource("Resource_frt04"), SubResource("Resource_frt05"), SubResource("Resource_frt06"), SubResource("Resource_frt07"), SubResource("Resource_frt08"), SubResource("Resource_frt09"), SubResource("Resource_frt10"), SubResource("Resource_frt11"), SubResource("Resource_frt12")])

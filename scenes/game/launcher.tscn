@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/game/launcher.gd" id="1_launcher"]
+[ext_resource type="Script" path="res://scripts/game/aim_guide.gd" id="2_guide"]
+
+[node name="Launcher" type="Node2D"]
+script = ExtResource("1_launcher")
+
+[node name="AimGuide" type="Node2D" parent="."]
+script = ExtResource("2_guide")

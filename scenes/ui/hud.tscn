@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_hud"]
+[ext_resource type="Script" path="res://scripts/ui/next_preview.gd" id="2_next"]
+
+[node name="Hud" type="Control"]
+anchor_right = 1.0
+offset_bottom = 220.0
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="ScoreCaption" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 18.0
+offset_right = 400.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0.541, 0.58, 0.651, 1)
+theme_override_font_sizes/font_size = 26
+text = "SCORE"
+
+[node name="ScoreValue" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 48.0
+offset_right = 620.0
+offset_bottom = 116.0
+theme_override_font_sizes/font_size = 56
+text = "0"
+
+[node name="BestCaption" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -460.0
+offset_top = 18.0
+offset_right = -140.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0.541, 0.58, 0.651, 1)
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 2
+text = "BEST"
+
+[node name="BestValue" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -460.0
+offset_top = 52.0
+offset_right = -140.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 2
+text = "0"
+
+[node name="NextPreview" type="Control" parent="."]
+offset_left = 40.0
+offset_top = 122.0
+offset_right = 440.0
+offset_bottom = 212.0
+mouse_filter = 2
+script = ExtResource("2_next")
+
+[node name="PauseButton" type="Button" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -116.0
+offset_top = 24.0
+offset_right = -32.0
+offset_bottom = 108.0
+theme_override_font_sizes/font_size = 40
+text = "||"

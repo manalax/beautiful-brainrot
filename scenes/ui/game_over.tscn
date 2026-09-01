@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/game_over.gd" id="1_over"]
+
+[node name="GameOver" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_over")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.078, 0.094, 0.133, 0.86)
+
+[node name="Panel" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -440.0
+offset_right = 420.0
+offset_bottom = 440.0
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Headline" type="Label" parent="Panel"]
+theme_override_font_sizes/font_size = 68
+horizontal_alignment = 1
+text = "GAME OVER"
+
+[node name="Score" type="Label" parent="Panel"]
+theme_override_font_sizes/font_size = 108
+horizontal_alignment = 1
+text = "0"
+
+[node name="Stats" type="Label" parent="Panel"]
+theme_override_colors/font_color = Color(0.541, 0.58, 0.651, 1)
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+text = "highest tier 0      longest chain 0"
+
+[node name="Retry" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(0, 120)
+theme_override_font_sizes/font_size = 48
+text = "RETRY"
+
+[node name="Menu" type="Button" parent="Panel"]
+custom_minimum_size = Vector2(0, 110)
+theme_override_font_sizes/font_size = 42
+text = "MENU"

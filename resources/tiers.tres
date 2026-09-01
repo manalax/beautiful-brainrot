@@ -1,0 +1,92 @@
+[gd_resource type="Resource" script_class="TierSet" format=3 uid="uid://duamky4sfnjw1"]
+
+[ext_resource type="Script" uid="uid://wplxc6auv0i8" path="res://scripts/data/tier_set.gd" id="1_wmlkw"]
+[ext_resource type="Script" uid="uid://khv0p5r5uyol" path="res://scripts/data/tier_data.gd" id="2_xmkqh"]
+
+[sub_resource type="Resource" id="Resource_wmlkw"]
+resource_name = "Tier01"
+script = ExtResource("2_xmkqh")
+radius = 35.0
+color = Color(0.905882, 0.298039, 0.235294, 1)
+
+[sub_resource type="Resource" id="Resource_7yjr2"]
+resource_name = "Tier02"
+script = ExtResource("2_xmkqh")
+tier = 2
+radius = 40.0
+color = Color(0.901961, 0.494118, 0.133333, 1)
+
+[sub_resource type="Resource" id="Resource_2icry"]
+resource_name = "Tier03"
+script = ExtResource("2_xmkqh")
+tier = 3
+radius = 45.0
+color = Color(0.945098, 0.768627, 0.0588235, 1)
+
+[sub_resource type="Resource" id="Resource_pubya"]
+resource_name = "Tier04"
+script = ExtResource("2_xmkqh")
+tier = 4
+radius = 50.0
+color = Color(0.494118, 0.827451, 0.129412, 1)
+
+[sub_resource type="Resource" id="Resource_lby7x"]
+resource_name = "Tier05"
+script = ExtResource("2_xmkqh")
+tier = 5
+radius = 55.0
+color = Color(0.180392, 0.8, 0.443137, 1)
+
+[sub_resource type="Resource" id="Resource_py7ks"]
+resource_name = "Tier06"
+script = ExtResource("2_xmkqh")
+tier = 6
+radius = 60.0
+color = Color(0.101961, 0.737255, 0.611765, 1)
+
+[sub_resource type="Resource" id="Resource_rwhdo"]
+resource_name = "Tier07"
+script = ExtResource("2_xmkqh")
+tier = 7
+radius = 70.0
+color = Color(0.203922, 0.596078, 0.858824, 1)
+
+[sub_resource type="Resource" id="Resource_cy5on"]
+resource_name = "Tier08"
+script = ExtResource("2_xmkqh")
+tier = 8
+radius = 80.0
+color = Color(0.356863, 0.415686, 0.74902, 1)
+
+[sub_resource type="Resource" id="Resource_sbsns"]
+resource_name = "Tier09"
+script = ExtResource("2_xmkqh")
+tier = 9
+radius = 90.0
+color = Color(0.607843, 0.34902, 0.713726, 1)
+
+[sub_resource type="Resource" id="Resource_ynasp"]
+resource_name = "Tier10"
+script = ExtResource("2_xmkqh")
+tier = 10
+radius = 100.0
+color = Color(0.909804, 0.262745, 0.576471, 1)
+
+[sub_resource type="Resource" id="Resource_e8k2b"]
+resource_name = "Tier11"
+script = ExtResource("2_xmkqh")
+tier = 11
+radius = 110.0
+color = Color(0.552941, 0.431373, 0.388235, 1)
+
+[sub_resource type="Resource" id="Resource_p211k"]
+resource_name = "Tier12"
+script = ExtResource("2_xmkqh")
+tier = 12
+radius = 120.0
+color = Color(0.92549, 0.941176, 0.945098, 1)
+
+[resource]
+resource_name = "TierSet"
+script = ExtResource("1_wmlkw")
+tiers = Array[ExtResource("2_xmkqh")]([SubResource("Resource_wmlkw"), SubResource("Resource_7yjr2"), SubResource("Resource_2icry"), SubResource("Resource_pubya"), SubResource("Resource_lby7x"), SubResource("Resource_py7ks"), SubResource("Resource_rwhdo"), SubResource("Resource_cy5on"), SubResource("Resource_sbsns"), SubResource("Resource_ynasp"), SubResource("Resource_e8k2b"), SubResource("Resource_p211k")])
