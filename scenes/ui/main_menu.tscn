@@ -1,19 +1,23 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://clt6jngy573ls"]
 
-[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_menu"]
+[ext_resource type="Script" uid="uid://d2mbvdbkh07du" path="res://scripts/ui/main_menu.gd" id="1_menu"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=943829708]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_menu")
 
-[node name="Backdrop" type="ColorRect" parent="."]
+[node name="Backdrop" type="ColorRect" parent="." unique_id=839690151]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0.078, 0.094, 0.133, 1)
 
-[node name="Panel" type="VBoxContainer" parent="."]
+[node name="Panel" type="VBoxContainer" parent="." unique_id=371167654]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -25,40 +29,53 @@ offset_bottom = 700.0
 theme_override_constants/separation = 26
 alignment = 1
 
-[node name="Title" type="Label" parent="Panel"]
+[node name="Title" type="Label" parent="Panel" unique_id=1554440127]
+layout_mode = 2
 theme_override_font_sizes/font_size = 84
+text = "BRAINROT MERGE"
 horizontal_alignment = 1
-text = "SLIDE MERGE"
 
-[node name="Best" type="Label" parent="Panel"]
+[node name="Dedication" type="Label" parent="Panel" unique_id=1852670665]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "For Sarah 🦌 ❤️"
+horizontal_alignment = 1
+
+[node name="Best" type="Label" parent="Panel" unique_id=491639455]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.541, 0.58, 0.651, 1)
 theme_override_font_sizes/font_size = 38
-horizontal_alignment = 1
 text = "BEST  0"
+horizontal_alignment = 1
 
-[node name="Play" type="Button" parent="Panel"]
+[node name="Play" type="Button" parent="Panel" unique_id=1882367166]
 custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
 theme_override_font_sizes/font_size = 54
 text = "PLAY"
 
-[node name="HowToCaption" type="Label" parent="Panel"]
+[node name="HowToCaption" type="Label" parent="Panel" unique_id=30350822]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.541, 0.58, 0.651, 1)
 theme_override_font_sizes/font_size = 28
-horizontal_alignment = 1
 text = "HOW TO PLAY"
-
-[node name="HowTo" type="Label" parent="Panel"]
-theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
-text = "Touch the bottom edge to place your piece
-Drag back to aim — further back is harder
-Release to shoot. Two of a kind merge."
 
-[node name="ScoresCaption" type="Label" parent="Panel"]
+[node name="HowTo" type="Label" parent="Panel" unique_id=431709968]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Touch the bottom edge to place your piece
+Drag to aim, pull back for a stronger shot
+Release to shoot. Two of a kind merge."
+horizontal_alignment = 1
+
+[node name="ScoresCaption" type="Label" parent="Panel" unique_id=1917969645]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.541, 0.58, 0.651, 1)
 theme_override_font_sizes/font_size = 28
-horizontal_alignment = 1
 text = "TOP SCORES"
+horizontal_alignment = 1
 
-[node name="Scores" type="VBoxContainer" parent="Panel"]
+[node name="Scores" type="VBoxContainer" parent="Panel" unique_id=944241806]
+layout_mode = 2
 theme_override_constants/separation = 8
