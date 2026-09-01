@@ -115,20 +115,19 @@ static func _draw_label(
 	if size <= 0:
 		return
 
-	var width := font.get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
+	var metrics := label_metrics(font, label.text)
+	var width := metrics.x * size
 
 	# Two-digit labels on tiers 10-12, and any label of more than one glyph, would otherwise
 	# overflow the circle.
 	var max_width := radius * Tuning.PIECE_LABEL_MAX_WIDTH_RATIO
 	if width > max_width and width > 0.0:
 		size = maxi(1, int(size * max_width / width))
-		width = font.get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
 
-	# draw_string anchors to the baseline, so offset by half the visual height to centre it.
-	var baseline := (font.get_ascent(size) - font.get_descent(size)) * 0.5
+	# Place the pen so that the middle of the inked pixels lands on the middle of the circle.
 	canvas.draw_string(
 		font,
-		centre + Vector2(-width * 0.5, baseline),
+		centre - Vector2(metrics.y, metrics.z) * size,
 		label.text,
 		HORIZONTAL_ALIGNMENT_LEFT,
 		-1,
@@ -144,6 +143,95 @@ static func _modulate_for(piece_set: PieceSet, fill: Color) -> Color:
 	if piece_set != null and not piece_set.label_tinted:
 		return Color.WHITE
 	return label_color(fill)
+
+
+## Measured at this size and then scaled. Font metrics are linear in size, so one measurement
+## describes every size a label is ever drawn at.
+const METRIC_REFERENCE_SIZE := 64
+
+## text -> (ink width, ink centre x, ink centre y), all per point of font size and all relative
+## to the pen origin. See label_metrics().
+static var _metrics: Dictionary = {}
+
+
+## How wide a label's inked pixels are, and where the middle of those pixels sits relative to the
+## pen origin — per point of font size, so one measurement serves every size.
+##
+## Measured from the actual glyph bitmaps, not from font metrics. Font metrics describe a *box*
+## the glyph is laid out in, and a glyph is not centred in its own box: an emoji's box is sized
+## to align it with a line of text, and centring the box leaves the emoji itself visibly high.
+## Ascent and descent cannot fix this, whichever font they are read from. Only the ink can.
+##
+## Falls back to the nominal box when the text server cannot report glyph bitmaps, which is the
+## behaviour this replaced — right for digits, off for emoji.
+##
+## Measured once per distinct label text and cached: this is a per-frame path for every piece on
+## the table, and shaping 40 lines a frame to draw 40 circles would be absurd.
+static func label_metrics(font: Font, text: String) -> Vector3:
+	if _metrics.has(text):
+		return _metrics[text]
+
+	var line := TextLine.new()
+	line.add_string(text, font, METRIC_REFERENCE_SIZE)
+
+	var box := _ink_bounds(line)
+	if box.size == Vector2.ZERO:
+		box = Rect2(
+			0.0,
+			-line.get_line_ascent(),
+			line.get_line_width(),
+			line.get_line_ascent() + line.get_line_descent()
+		)
+
+	var measured := Vector3(
+		box.size.x, box.get_center().x, box.get_center().y
+	) / float(METRIC_REFERENCE_SIZE)
+
+	_metrics[text] = measured
+	return measured
+
+
+## The union of the glyph bitmaps in a shaped line, relative to the pen origin. A zero-sized rect
+## means the text server could not report them and the caller should use the nominal box.
+static func _ink_bounds(line: TextLine) -> Rect2:
+	var server := TextServerManager.get_primary_interface()
+	if server == null:
+		return Rect2()
+	for required in ["shaped_text_get_glyphs", "font_get_glyph_offset", "font_get_glyph_size"]:
+		if not server.has_method(required):
+			return Rect2()
+
+	var bounds := Rect2()
+	var found := false
+	var pen := 0.0
+
+	for glyph: Dictionary in server.shaped_text_get_glyphs(line.get_rid()):
+		var advance := float(glyph.get("advance", 0.0))
+		var font_rid: RID = glyph.get("font_rid", RID())
+		if font_rid.is_valid():
+			var at := Vector2i(int(glyph.get("font_size", METRIC_REFERENCE_SIZE)), 0)
+			var index := int(glyph.get("index", 0))
+			var ink: Vector2 = server.font_get_glyph_size(font_rid, at, index)
+			# A space, or a glyph the server declines to raster, has no ink to contribute.
+			if ink != Vector2.ZERO:
+				var origin := Vector2(
+					pen + float(glyph.get("x_off", 0.0)), float(glyph.get("y_off", 0.0))
+				)
+				var offset: Vector2 = server.font_get_glyph_offset(font_rid, at, index)
+				var glyph_box := Rect2(origin + offset, ink)
+				bounds = glyph_box if not found else bounds.merge(glyph_box)
+				found = true
+		pen += advance
+
+	return bounds if found else Rect2()
+
+
+## Drops both cached measurements and the cached font chain, so the next draw re-resolves. Only
+## the dev harness needs this; the two must go together, because the metrics describe the font.
+static func reset_caches() -> void:
+	_metrics.clear()
+	_number_labels.clear()
+	PieceFont.reset()
 
 
 ## Fills brighter than the threshold take the dark label. Computed from the fill actually being

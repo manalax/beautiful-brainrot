@@ -28,6 +28,7 @@ func _ready() -> void:
 	_check_fallbacks()
 	_check_colour_override()
 	_check_font()
+	_check_metrics()
 	_check_ownership()
 	_check_persistence()
 	queue_redraw()
@@ -160,6 +161,41 @@ func _check_font() -> void:
 		else:
 			printerr("  %-10s NO GLYPH for: %s  <- these draw as tofu"
 				% [piece_set.id, " ".join(missing)])
+
+
+## Label metrics, per set. A zero width means the chain produced no glyph at all, which is the
+## same failure as tofu but silent. The baseline column is what centring rides on: it should be
+## roughly 0.3 per point for digits, and differ for emoji — an emoji column identical to the
+## digit one means the shaped line is reporting the base font's metrics rather than the emoji
+## font's, and labels will sit off centre again.
+func _check_metrics() -> void:
+	print("\n=== label metrics (per point of font size) ===")
+
+	var font := PieceFont.label_font()
+	if font == null:
+		printerr("INVALID: no label font")
+		return
+
+	for piece_set in _registry.sets:
+		if piece_set == null:
+			continue
+		var widths := PackedStringArray()
+		var baselines := PackedStringArray()
+		var degenerate := PackedStringArray()
+		for tier in range(1, Tuning.MAX_TIER + 1):
+			var label := piece_set.get_label(tier)
+			if label == null or label.text.is_empty():
+				continue
+			var m := PieceRender.label_metrics(font, label.text)
+			widths.append("%.2f" % m.x)
+			baselines.append("%.2f" % m.y)
+			if m.x <= 0.0:
+				degenerate.append(label.text)
+		print("  %-10s width    %s" % [piece_set.id, " ".join(widths)])
+		print("  %-10s baseline %s" % ["", " ".join(baselines)])
+		if not degenerate.is_empty():
+			printerr("  %-10s ZERO WIDTH for: %s  <- no glyph was produced"
+				% [piece_set.id, " ".join(degenerate)])
 
 
 ## Free sets are owned; a priced one is not until it is granted.
