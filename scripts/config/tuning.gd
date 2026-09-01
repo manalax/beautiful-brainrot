@@ -42,10 +42,10 @@ const CAMERA_TOP_BIAS := 0.86
 ## Behind everything, including the HUD band. Also set as the project's default clear color.
 const COLOR_SURROUND := Color("#141922")
 ## The table surface itself.
-const COLOR_TABLE_BG := Color("#1E2430")
+const COLOR_TABLE_BG := Color("#405c58")
 ## Slightly lifted from the table so the launch lane reads as its own zone.
-const COLOR_LAUNCH_LANE := Color("#2A3242")
-const COLOR_WALL := Color("#3E4859")
+const COLOR_LAUNCH_LANE := Color("#2b3a38")
+const COLOR_WALL := Color("#718582")
 ## Idle danger line. Amber rather than red so it is not confused with a tier-1 piece.
 const COLOR_DANGER_LINE := Color("#F5A623")
 ## Danger line and at-risk pieces pulse to this during the grace period (F8).
@@ -227,8 +227,8 @@ const MERGE_COOLDOWN_FRAMES := 1
 
 # --- Spawn queue (§9) --------------------------------------------------------------------------
 
-## Weights for tiers 1..5, in order. Index 0 is tier 1.
-const SPAWN_TIER_WEIGHTS: Array[int] = [30, 25, 20, 15, 10]
+## Weights for tiers 1..4, in order. Index 0 is tier 1.
+const SPAWN_TIER_WEIGHTS: Array[int] = [30, 25, 25, 20]
 
 # --- Loss condition (§9) -----------------------------------------------------------------------
 

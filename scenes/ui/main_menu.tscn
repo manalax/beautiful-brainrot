@@ -7,6 +7,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_menu")
 
 [node name="Backdrop" type="ColorRect" parent="." unique_id=839690151]
@@ -14,7 +16,7 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color(0.078, 0.094, 0.133, 1)
+color = Color(0.2509804, 0.36078432, 0.34509805, 1)
 
 [node name="Panel" type="VBoxContainer" parent="." unique_id=371167654]
 layout_mode = 0
