@@ -54,6 +54,14 @@ const COLOR_DANGER_WARNING := Color("#E74C3C")
 ## HUD captions ("NEXT", "SCORE", "BEST") — present but never competing with the board.
 const COLOR_HUD_CAPTION := Color("#8A94A6")
 
+## The tier progression guide (§11). Caption weight on purpose: it is furniture the player reads
+## between shots, not a readout. Emoji sets ignore this and draw as authored.
+const COLOR_TIER_GUIDE := Color("#8A94A6")
+## How much of its cell the widest label fills, and the ceiling on label size as a fraction of the
+## guide's height. The first almost always wins — twelve cells across ~580px is the tight axis.
+const TIER_GUIDE_CELL_FILL := 0.8
+const TIER_GUIDE_HEIGHT_FILL := 0.75
+
 const DANGER_LINE_WIDTH := 4.0
 ## Length of each dash; draw_dashed_line uses an equal gap.
 const DANGER_LINE_DASH := 26.0

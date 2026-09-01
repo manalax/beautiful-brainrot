@@ -14,6 +14,7 @@ signal pause_pressed
 @onready var _score_value: Label = $ScoreValue
 @onready var _best_value: Label = $BestValue
 @onready var _next: NextPreview = $NextPreview
+@onready var _tier_guide: TierGuide = $TierGuide
 @onready var _pause_button: Button = $PauseButton
 
 var _punch: Tween = null
@@ -38,6 +39,12 @@ func set_best(value: int) -> void:
 
 func show_next(data: TierData) -> void:
 	_next.show_tier(data)
+
+
+## The progression guide. It feeds itself from the active piece set, so nothing calls into it —
+## this is here for the harness.
+func tier_guide() -> TierGuide:
+	return _tier_guide
 
 
 ## The tier the swatch is advertising, or 0. Used by the F7 harness.
