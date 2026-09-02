@@ -36,6 +36,8 @@ const LAUNCHER_Y := 1780.0
 ## sits at the bottom edge and has to stay under the thumb. 0.5 would centre the table; 1.0 would
 ## pin it flush to the bottom. See GAME_DESIGN.md §4.2.
 const CAMERA_TOP_BIAS := 0.86
+## The same, horizontally: 0.5 centres the design box, so a tablet gets even margins either side.
+const CAMERA_SIDE_BIAS := 0.5
 
 # --- Placeholder palette (§4.1) ----------------------------------------------------------------
 

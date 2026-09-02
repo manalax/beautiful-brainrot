@@ -49,9 +49,6 @@ script = ExtResource("6_popups")
 
 [node name="Hud" parent="UI" unique_id=2020176036 instance=ExtResource("7_hud")]
 layout_mode = 3
-anchors_preset = 10
-offset_bottom = 0.0
-grow_horizontal = 2
 
 [node name="PauseMenu" parent="UI" unique_id=2132664219 instance=ExtResource("9_pause")]
 layout_mode = 3

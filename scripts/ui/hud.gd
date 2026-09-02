@@ -2,6 +2,12 @@
 ##
 ## Reads nothing on its own — the play scene feeds it. That keeps the physics and the run state
 ## unaware that a HUD exists.
+##
+## Laid out in design coordinates — y 0–220 of the 1080x1920 box, same space as the table. It
+## sits on a `CanvasLayer`, though, which the camera does not touch, so left anchored it would
+## stick to the screen while the table was placed further down (§4.2) and open a gap between the
+## two: 453px of dead space on a 20:9 phone, reading as a top bar twice the height it should be.
+## So it puts itself where `DesignBox` says the box landed and moves with it.
 class_name Hud
 extends Control
 
@@ -22,6 +28,18 @@ var _punch: Tween = null
 
 func _ready() -> void:
 	_pause_button.pressed.connect(pause_pressed.emit)
+	get_viewport().size_changed.connect(_fit_to_design_box)
+	_fit_to_design_box()
+
+
+## Parks the band on the top 220px of the design box, wherever that box landed. Anchors are reset
+## rather than trusted: the band is a fixed 1080 wide by design — stretching it to a tablet's
+## viewport would drag BEST and the pause button out to the screen edge, away from the table they
+## label.
+func _fit_to_design_box() -> void:
+	set_anchors_preset(Control.PRESET_TOP_LEFT)
+	position = DesignBox.origin(get_viewport_rect().size)
+	size = Vector2(Tuning.DESIGN_SIZE.x, Tuning.HUD_BAND_HEIGHT)
 
 
 ## Hidden while a run is over — there is nothing to pause, and the overlay owns the screen.
