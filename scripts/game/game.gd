@@ -35,7 +35,7 @@ func _ready() -> void:
 	_danger.triggered.connect(_on_danger_triggered)
 	_danger.danger_changed.connect(_table.set_danger_intensity)
 
-	_hud.pause_pressed.connect(_pause_menu.open)
+	_hud.pause_pressed.connect(_on_pause_pressed)
 	_pause_menu.quit_pressed.connect(quit_to_menu.emit)
 	_game_over.retry_pressed.connect(_on_retry)
 	_game_over.menu_pressed.connect(quit_to_menu.emit)
@@ -96,6 +96,14 @@ func _on_state_run_ended(score: int, is_best: bool) -> void:
 	# old number behind an overlay announcing a new one.
 	_hud.set_best(GameState.best_score)
 	run_ended.emit(score, is_best)
+
+
+## Pause reaches the launcher first. A second finger can hit the pause button mid-drag, and a
+## paused launcher never hears that drag end — so the gesture is dropped before the tree stops
+## rather than left to resolve after it starts again, possibly under a different aim mode.
+func _on_pause_pressed() -> void:
+	_launcher.cancel_aim()
+	_pause_menu.open()
 
 
 func _on_retry() -> void:

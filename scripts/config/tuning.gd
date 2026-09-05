@@ -192,6 +192,15 @@ const POWER_CURVE_EXPONENT := 1.15
 ## Reload beat between shots. Not a wait for the table to settle.
 const SHOT_COOLDOWN := 0.4
 
+## Which way a drag points the shot. The default is the slingshot of §7 — drag away from the
+## target and the piece fires opposite the drag. Inverted, the shot follows the drag instead, so
+## the player swipes toward where they want the piece to go. It is a pure sign flip: the deadzone,
+## the power ramp and the cancel-back-into-the-deadzone rule are identical either way.
+const DEFAULT_INVERT_AIM := false
+## Both buttons name the mode you are *in*, not the one tapping would switch to.
+const AIM_LABEL_PULL := "AIM: PULL BACK"
+const AIM_LABEL_PUSH := "AIM: SWIPE FORWARD"
+
 # --- Aim guide (§7) ----------------------------------------------------------------------------
 
 const AIM_LINE_MIN_LENGTH := 200.0

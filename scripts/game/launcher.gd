@@ -91,6 +91,22 @@ func reset() -> void:
 	needs_piece.emit.call_deferred()
 
 
+## Abandons a gesture in progress without firing, leaving the launcher where it slid to.
+##
+## Pausing needs this. The tree stops, so the launcher never hears the finger lift, and it would
+## come back from the pause still AIMING against a touch index that no longer exists — a state
+## `_begin_gesture()` refuses to leave, because it only starts from READY. Changing the aim mode
+## from that menu makes it worse: the half-finished drag would resolve under the other sign.
+func cancel_aim() -> void:
+	_touch_index = -1
+	if state != State.PLACING and state != State.AIMING:
+		return
+	if state == State.AIMING:
+		_guide.hide_aim()
+		aim_ended.emit()
+	state = State.READY
+
+
 func _pieces_root() -> Node:
 	if not pieces_root_path.is_empty():
 		var node := get_node_or_null(pieces_root_path)
@@ -156,7 +172,11 @@ func _update_gesture(world: Vector2) -> void:
 	if state != State.PLACING and state != State.AIMING:
 		return
 
-	var drag := _touch_start - world
+	# The one difference between the two aim modes (§7): pull-back fires opposite the drag, swipe
+	# fires along it. Everything downstream — the deadzone, the power ramp, the cancel rule — is
+	# measured from `distance`, which the flip does not touch, so both modes feel identical apart
+	# from the direction.
+	var drag := world - _touch_start if GameState.invert_aim else _touch_start - world
 	var distance := drag.length()
 
 	if distance < Tuning.AIM_DEADZONE:

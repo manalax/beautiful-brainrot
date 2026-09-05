@@ -10,15 +10,21 @@ signal quit_pressed
 
 @onready var _resume: Button = $Panel/Resume
 @onready var _quit: Button = $Panel/Quit
+@onready var _aim_mode: Button = $Panel/AimMode
 
 
 func _ready() -> void:
 	_resume.pressed.connect(_on_resume)
 	_quit.pressed.connect(_on_quit)
+	_aim_mode.pressed.connect(_on_aim_mode)
+	GameState.invert_aim_changed.connect(_show_aim_mode)
+	_show_aim_mode(GameState.invert_aim)
 	hide()
 
 
 func open() -> void:
+	# The menu can be reopened after the mode was last changed somewhere else.
+	_show_aim_mode(GameState.invert_aim)
 	show()
 	get_tree().paused = true
 	_animate_in()
@@ -39,12 +45,26 @@ func _on_quit() -> void:
 	quit_pressed.emit()
 
 
+## Flips the aim mode (§7) and stays open: the player is here to try it, and closing the menu on
+## them would cost the shot they were lining up.
+func _on_aim_mode() -> void:
+	GameState.toggle_invert_aim()
+
+
+func _show_aim_mode(inverted: bool) -> void:
+	_aim_mode.text = GameState.aim_mode_label(inverted)
+
+
 func resume_button() -> Button:
 	return _resume
 
 
 func quit_button() -> Button:
 	return _quit
+
+
+func aim_mode_button() -> Button:
+	return _aim_mode
 
 
 ## Fades the overlay up and lets the panel settle, rather than snapping into place.

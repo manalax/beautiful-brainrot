@@ -10,6 +10,9 @@ signal run_started
 signal run_ended(score: int, is_best: bool)
 ## The active piece set changed. Anything drawing a piece repaints on this.
 signal piece_set_changed(piece_set: PieceSet)
+## The aim mode changed (§7). Both buttons that offer it relabel on this, so whichever one the
+## player did not touch is still telling the truth when they next see it.
+signal invert_aim_changed(inverted: bool)
 
 var score := 0
 ## Best across all runs, and the top-ten table the menu lists. Both are read straight from the
@@ -20,6 +23,12 @@ var best_score: int:
 var top_scores: Array[Dictionary]:
 	get:
 		return SaveManager.top_scores
+
+## Which way a drag points the shot (§7). Read straight from the save for the same reason the
+## scores are: one copy. Set it through `set_invert_aim()`.
+var invert_aim: bool:
+	get:
+		return SaveManager.invert_aim
 
 ## Per-run statistics, for the game-over screen (§10).
 var shots_fired := 0
@@ -105,6 +114,30 @@ func _on_save_loaded() -> void:
 	_active_set = null
 	if active_set != previous:
 		piece_set_changed.emit(active_set)
+	# Re-reading the save can change the aim mode under everything that is already showing it.
+	invert_aim_changed.emit(invert_aim)
+
+
+# --- aim mode (§7) -------------------------------------------------------------------------------
+
+## Records the aim mode and tells everyone showing it. Safe to call with the value it already has.
+func set_invert_aim(value: bool) -> void:
+	if value == invert_aim:
+		return
+	SaveManager.set_invert_aim(value)
+	invert_aim_changed.emit(value)
+
+
+## Flips the mode and returns the one now in force.
+func toggle_invert_aim() -> bool:
+	set_invert_aim(not invert_aim)
+	return invert_aim
+
+
+## The label for a mode, for the two buttons that offer it. Names the mode you are in, so it reads
+## as a state next to RESUME and QUIT, which are actions.
+func aim_mode_label(inverted: bool) -> String:
+	return Tuning.AIM_LABEL_PUSH if inverted else Tuning.AIM_LABEL_PULL
 
 
 # --- the run -------------------------------------------------------------------------------------

@@ -24,6 +24,10 @@ var stats: Dictionary = DEFAULT_STATS.duplicate()
 var selected_set: StringName = Tuning.DEFAULT_PIECE_SET
 var owned_sets: Array[StringName] = []
 
+## Which way drags point the shot (§7). A comfort preference, not run state, so it lives with the
+## save rather than being set again every session.
+var invert_aim := Tuning.DEFAULT_INVERT_AIM
+
 var save_path := Tuning.SAVE_PATH
 var tmp_path := Tuning.SAVE_TMP_PATH
 
@@ -77,6 +81,7 @@ func save() -> void:
 		"stats": stats,
 		"selected_set": String(selected_set),
 		"owned_sets": owned_out,
+		"invert_aim": invert_aim,
 	}
 
 	var file := FileAccess.open(tmp_path, FileAccess.WRITE)
@@ -138,6 +143,7 @@ func load_game() -> void:
 	# high scores to add a cosmetic preference. A file without these keys simply defaults.
 	selected_set = _clean_set_id(data.get("selected_set", ""))
 	owned_sets = _clean_owned_sets(data.get("owned_sets", []))
+	invert_aim = _as_bool(data.get("invert_aim", Tuning.DEFAULT_INVERT_AIM))
 
 	# A file could carry a best that no longer appears in the table, or the reverse.
 	if not top_scores.is_empty():
@@ -161,6 +167,7 @@ func _defaults() -> void:
 	stats = DEFAULT_STATS.duplicate()
 	selected_set = Tuning.DEFAULT_PIECE_SET
 	owned_sets = []
+	invert_aim = Tuning.DEFAULT_INVERT_AIM
 
 
 ## Records a set as paid for and writes. Idempotent, and free sets are never listed — they are
@@ -180,6 +187,15 @@ func set_selected_set(id: StringName) -> void:
 	if id == selected_set:
 		return
 	selected_set = id
+	save()
+
+
+## Persists the aim mode. Written immediately rather than at the end of the run: the player can
+## change it from the main menu, where there is no run to end.
+func set_invert_aim(value: bool) -> void:
+	if value == invert_aim:
+		return
+	invert_aim = value
 	save()
 
 
@@ -243,6 +259,18 @@ func _clean_owned_sets(raw: Variant) -> Array[StringName]:
 		if id not in out:
 			out.append(id)
 	return out
+
+
+## A hand-edited file can carry anything where a flag should be. JSON round-trips a real bool, so
+## that is the only shape trusted outright; a number is read for truthiness and everything else —
+## a string, a null, an array — falls back to the default rather than to `false`, which would be a
+## silent answer to a question the file never actually answered.
+func _as_bool(value: Variant) -> bool:
+	if value is bool:
+		return value
+	if value is int or value is float:
+		return float(value) != 0.0
+	return Tuning.DEFAULT_INVERT_AIM
 
 
 ## JSON gives every number back as a float, and a corrupt file can give back anything at all.
